@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+#Environment variables
+.env
+
 ### STS ###
 .apt_generated
 .classpath
@@ -18,6 +21,11 @@ target/
 *.iws
 *.iml
 *.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
 
 ### NetBeans ###
 /nbproject/private/
@@ -40,3 +48,5 @@ target/
 .DS_Store
 Thumbs.db
 
+# Logs
+*.log

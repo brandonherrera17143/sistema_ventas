@@ -1,0 +1,58 @@
+name: ejecuciones-manuales.yml
+on:
+  workflow_dispatch:
+    inputs:
+      log-level:
+        description: "Niveles del log"
+        required: true
+        default: "info"
+        type: choice
+        options:
+          - info
+          - debug
+          - warning
+          - error
+
+      entorno-utilizar:
+        description: "Entorno"
+        type: environment
+
+      dry_run:
+        description: "Ejecutar sin aplicar los cambios"
+        required: false
+        default: false
+        type: boolean
+
+      reason:
+        description: "Motivo de la ejecucion"
+        required: false
+        default: "Manual de ejecucion"
+        type: string
+
+jobs:
+  manual:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Mostrar todos los input
+        env:
+          LOG_LEVEL: ${{inputs.log-level}}
+          ENVIRONMENT: ${{inputs.entorno-utilizar}}
+          DRY_RUN: ${{inputs.dry_run}}
+          REASON: ${{inputs.reason}}
+        run: |
+          echo "LOG_LEVEL: $LOG_LEVEL"
+          echo "ENVIRONMENT: $ENVIRONMENT"
+          echo "DRY_RUN: $DRY_RUN"
+          echo "REASON: $REASON"
+
+      - name: Deploy (solo si no es DRY_RUN)
+        if: ${{ !inputs.dry_run}}
+        env:
+          ENVIRONMENT: ${{ inputs.entorno-utilizar }}
+        run: |
+          echo "Deploying to $ENVIRONMENT"
+
+      - name: solo log si es dry-run
+        if: ${{ inputs.dry_run }}
+        run: |
+          echo "si es dry_run no aplicar los cambios"

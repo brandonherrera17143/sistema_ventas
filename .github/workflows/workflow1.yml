@@ -1,0 +1,14 @@
+name: 01 - prueba
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tareaUno:
+    runs-on: ubuntu-24.04 [Beta]
+    steps:
+      - name: Saludar
+        run: echo "Intento numero de uno de hit action"
+
+      - name: Ver fechas del runner
+        run: date

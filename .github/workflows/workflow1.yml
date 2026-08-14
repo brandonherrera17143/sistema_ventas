@@ -13,3 +13,9 @@ jobs:
 
       - name: Ver fechas del runner
         run: date
+
+  descargar-repo:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Descargar Repositorio
+        uses: actions/checkout@v6
